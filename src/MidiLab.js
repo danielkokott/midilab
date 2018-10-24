@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MidiSelector from './components/midiSelector.js';
+import MidiTrack from './components/midiTrack.js';
 
 class MidiLab extends Component {
 
@@ -49,10 +49,9 @@ class MidiLab extends Component {
       <div className="MidiLab container">
         <div className="row">
           <div className="col">
-            <MidiSelector midiPorts={this.state.midiInputPorts} />
-          </div>
-          <div className="col">
-            <MidiSelector midiPorts={this.state.midiOutputPorts} />
+            <MidiTrack
+              midiInputPorts={this.state.midiInputPorts}
+              midiOutPorts={this.state.midiOutPorts} />
           </div>
         </div>
       </div>

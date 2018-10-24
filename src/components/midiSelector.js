@@ -7,18 +7,20 @@ class MidiSelector extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       selectedMidiPortId: '',
-      selectedMidiPort: null
     };
   }
 
   handleChange(event) {
-    console.log('hand', event.target.value);
-    // this.setState({value: event.target.value});
+    this.props.selectMidiPort(event);
+    this.setState({ selectedMidiPortId: event.target.value });
   }
 
   render() {
     // console.log(this.props.midiPorts)
-    let options = [];
+    let options = [
+      <option key="-1" value="" disabled="disabled">(ingen)</option>
+    ];
+
     if(this.props.midiPorts) {
       options = this.props.midiPorts.map(midiPort => {
         return (
