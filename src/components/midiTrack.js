@@ -8,7 +8,6 @@ class MidiTrack extends Component {
     this.selectMidiInputPort = this.selectMidiInputPort.bind(this);
     this.selectMidiOutputPort = this.selectMidiOutputPort.bind(this);
     this.state = {
-      selectedMidiPortId: '',
       selectedMidiInputPort: null,
       selectedMidiOutputPort: null
     };
@@ -41,14 +40,25 @@ class MidiTrack extends Component {
     return (
       <div className="MidiTrack row">
         <div className="col">
-          <MidiSelector
-            selectMidiPort={this.selectMidiInputPort}
-            midiPorts={this.props.midiInputPorts} />
-        </div>
-        <div className="col">
-          <MidiSelector
-            selectMidiPort={this.selectMidiOutputPort}
-            midiPorts={this.props.midiOutputPorts} />
+          <div className="row">
+            <div className="col">
+              Track {this.props.id}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <p><span className="badge badge-secondary">Input</span></p>
+              <MidiSelector
+                selectMidiPort={this.selectMidiInputPort}
+                midiPorts={this.props.midiInputPorts} />
+            </div>
+            <div className="col">
+              <p><span className="badge badge-secondary">Output</span></p>
+              <MidiSelector
+                selectMidiPort={this.selectMidiOutputPort}
+                midiPorts={this.props.midiOutputPorts} />
+            </div>
+          </div>
         </div>
       </div>
     );
