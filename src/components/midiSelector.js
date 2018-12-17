@@ -34,6 +34,7 @@ class MidiSelector extends Component {
 
     return (
       <select value={this.state.selectedMidiPortId} onChange={this.handleChange}>
+        <option value="">(None)</option>
         {options}
       </select>
     );

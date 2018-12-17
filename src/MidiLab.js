@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import Tone from 'tone';
+import { midi } from 'tonal';
+
 import MidiTrack from './components/midiTrack.js';
 import MidiTrackAdder from './components/midiTrackAdder.js';
+import StepSequencer from './components/stepSequencer.js';
 
 class MidiLab extends Component {
 
@@ -50,23 +54,34 @@ class MidiLab extends Component {
     navigator.requestMIDIAccess({ sysex: false })
     .then(this.onMIDISuccess)
     .catch(this.onMIDIFailure);
-  }
 
+    Tone.Transport.bpm.value = 120
+  }
+  
   render() {
+    console.log('render this.state.midiInputPorts', this.state.midiInputPorts)
+    console.log('render this.state.midiOutputPorts', this.state.midiOutputPorts)
     const tracks = this.state.midiTracks.map(track => {
+      const midiInputPorts = this.state.midiInputPorts.filter(port => port.connection === 'closed')
+      const midiOutputPorts = this.state.midiOutputPorts.filter(port => port.connection === 'closed')
       return (
         <MidiTrack
           id={track.id}
           key={track.id}
-          midiInputPorts={this.state.midiInputPorts}
-          midiOutputPorts={this.state.midiOutputPorts} />
+          midiInputPorts={midiInputPorts}
+          midiOutputPorts={midiOutputPorts} />
       );
     });
 
     return (
       <div className="MidiLab container">
+
         <MidiTrackAdder addMidiTrack={this.addMidiTrack} />
+
         {tracks}
+
+        <StepSequencer />
+
       </div>
     );
   }

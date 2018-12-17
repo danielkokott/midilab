@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MidiSelector from './midiSelector.js';
+import MidiTrackControls from './midiTrackControls';
 
 class MidiTrack extends Component {
 
@@ -7,33 +8,50 @@ class MidiTrack extends Component {
     super(props);
     this.selectMidiInputPort = this.selectMidiInputPort.bind(this);
     this.selectMidiOutputPort = this.selectMidiOutputPort.bind(this);
+    this.onMIDIMessage = this.onMIDIMessage.bind(this);
     this.state = {
       selectedMidiInputPort: null,
       selectedMidiOutputPort: null
     };
   }
 
+  onMIDIMessage(event) {
+    if(this.state.selectedMidiOutputPort) {
+      this.state.selectedMidiOutputPort.send(event.data);
+    }
+  }
+
   selectMidiInputPort(event) {
-    console.log('selectMidiInputPort', event.target.value);
     const selectedMidiInputPort = this.props.midiInputPorts.find(midiPort => {
       return midiPort.id === event.target.value;
-    })
+    });
+
+    if(selectedMidiInputPort) {
+      // We close the old port
+      if (this.state.selectedMidiInputPort && this.state.selectedMidiInputPort.id !== selectedMidiInputPort.id) {
+        this.state.selectedMidiInputPort.close();
+      }
+      selectedMidiInputPort.onmidimessage = this.onMIDIMessage;
+      selectedMidiInputPort.open();
+    }
+
     this.setState({ selectedMidiInputPort: selectedMidiInputPort });
   }
 
   selectMidiOutputPort(event) {
-    console.log('selectMidiOutputPort', event.target.value);
-    const selectMidiOutputPort = this.props.midiOutputPorts.find(midiPort => {
+    const selectedMidiOutputPort = this.props.midiOutputPorts.find(midiPort => {
       return midiPort.id === event.target.value;
-    })
-    this.setState({ selectMidiOutputPort: selectMidiOutputPort });
-  }
+    });    
+    
+    if(selectedMidiOutputPort) {
+      // We close the old port
+      if (this.state.selectedMidiOutputPort && this.state.selectedMidiOutputPort.id !== selectedMidiOutputPort.id) {
+        this.state.selectedMidiOutputPort.close();
+      }
+      selectedMidiOutputPort.open();
+    }
 
-  handleChange(event) {
-    const selectedMidiPort = this.props.midiPorts.find(midiPort => {
-      return midiPort.id === event.target.value;
-    })
-    this.setState({ selectedMidiPort: selectedMidiPort });
+    this.setState({ selectedMidiOutputPort: selectedMidiOutputPort });
   }
 
   render() {
@@ -47,7 +65,10 @@ class MidiTrack extends Component {
           </div>
           <div className="row">
             <div className="col">
-              <p><span className="badge badge-secondary">Input</span></p>
+              <p>
+                <span className="badge badge-secondary">Input</span>
+                <span className="miniInputDot"></span>
+              </p>
               <MidiSelector
                 selectMidiPort={this.selectMidiInputPort}
                 midiPorts={this.props.midiInputPorts} />
@@ -59,6 +80,7 @@ class MidiTrack extends Component {
                 midiPorts={this.props.midiOutputPorts} />
             </div>
           </div>
+          <MidiTrackControls />
         </div>
       </div>
     );
