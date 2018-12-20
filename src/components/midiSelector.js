@@ -16,13 +16,13 @@ class MidiSelector extends Component {
   }
 
   render() {
-    // console.log(this.props.midiPorts)
+    // console.log(this.props.availableMidiPorts)
     let options = [
       <option key="-1" value="" disabled="disabled">(ingen)</option>
     ];
 
-    if(this.props.midiPorts) {
-      options = this.props.midiPorts.map(midiPort => {
+    if(this.props.availableMidiPorts) {
+      options = this.props.availableMidiPorts.map(midiPort => {
         return (
           <option
             id={midiPort.id}

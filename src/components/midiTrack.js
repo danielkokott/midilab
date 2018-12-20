@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import MidiSelector from './midiSelector.js';
 import MidiTrackControls from './midiTrackControls';
 
+import StepSequencer from './stepSequencer.js';
+import Arpeggiator from './arpeggiator.js';
+
 class MidiTrack extends Component {
 
   constructor(props) {
@@ -17,6 +20,7 @@ class MidiTrack extends Component {
 
   onMIDIMessage(event) {
     if(this.state.selectedMidiOutputPort) {
+      console.log('event', this.state.selectedMidiOutputPort, event.data);
       this.state.selectedMidiOutputPort.send(event.data);
     }
   }
@@ -71,16 +75,22 @@ class MidiTrack extends Component {
               </p>
               <MidiSelector
                 selectMidiPort={this.selectMidiInputPort}
-                midiPorts={this.props.midiInputPorts} />
+                availableMidiPorts={this.props.midiInputPorts} />
             </div>
             <div className="col">
               <p><span className="badge badge-secondary">Output</span></p>
               <MidiSelector
                 selectMidiPort={this.selectMidiOutputPort}
-                midiPorts={this.props.midiOutputPorts} />
+                availableMidiPorts={this.props.midiOutputPorts} />
             </div>
           </div>
+
           <MidiTrackControls />
+          
+          <StepSequencer />
+
+          <Arpeggiator selectedMidiOutputPort={this.state.selectedMidiOutputPort} />
+
         </div>
       </div>
     );

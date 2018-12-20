@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Tone from 'tone';
-import { midi } from 'tonal';
 
 import MidiTrack from './components/midiTrack.js';
 import MidiTrackAdder from './components/midiTrackAdder.js';
-import StepSequencer from './components/stepSequencer.js';
 
 class MidiLab extends Component {
 
@@ -55,7 +53,9 @@ class MidiLab extends Component {
     .then(this.onMIDISuccess)
     .catch(this.onMIDIFailure);
 
-    Tone.Transport.bpm.value = 120
+    Tone.Transport.bpm.value = 90;
+    // Tone.Transport.bpm.value = 120;
+    Tone.Transport.start();
   }
   
   render() {
@@ -79,8 +79,6 @@ class MidiLab extends Component {
         <MidiTrackAdder addMidiTrack={this.addMidiTrack} />
 
         {tracks}
-
-        <StepSequencer />
 
       </div>
     );
