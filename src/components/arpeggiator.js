@@ -45,19 +45,20 @@ class Arpeggiator extends Component {
     }
 
     const selectedMidiOutputPort = this.props.selectedMidiOutputPort;
+    console.log('selectedMidiOutputPort', selectedMidiOutputPort);
 
-    // const t = Tone.Time("4n");
-    const t = Tone.Time("8n");
-    console.log(t);
-    console.log(t.toMilliseconds());
+    const t = Tone.Time("4n");
+    const noteLength = t.toMilliseconds();
+    // const t = Tone.Time("8n");
+    console.log('noteLength', noteLength);
 
     function playNote(time, note) {
-      console.log(time, note, selectedMidiOutputPort);
+      console.log('playNote', time, note, selectedMidiOutputPort);
       const b = Tone.Midi(note).toMidi(); //60
       const noteOnMessage = [0x90 | selectedMidiChannel, b, 0x7f];
       const noteOffMessage = [0x80 | selectedMidiChannel, b, 0x7f];
       selectedMidiOutputPort.send(noteOnMessage);
-      selectedMidiOutputPort.send(noteOffMessage, window.performance.now() + t.toMilliseconds());
+      selectedMidiOutputPort.send(noteOffMessage, window.performance.now() + noteLength);
     }
 
 
@@ -65,9 +66,6 @@ class Arpeggiator extends Component {
     // const seq = new Tone.Sequence(playNote, ["C4", "E4", "G4", "A4"], t);
 
     this.setState({ seq: seq });
-
-
-
 
     console.log('sqe', seq)
     seq.start(0, 0);

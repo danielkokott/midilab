@@ -62,11 +62,11 @@ class MidiTrack extends Component {
     return (
       <div className="MidiTrack row">
         <div className="col">
-          <div className="row">
+          {/* <div className="row">
             <div className="col">
               Track {this.props.id}
             </div>
-          </div>
+          </div> */}
           <div className="row">
             <div className="col">
               <p>
