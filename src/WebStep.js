@@ -4,7 +4,7 @@ import Tone from 'tone';
 import MidiTrack from './components/midiTrack.js';
 import MidiTrackAdder from './components/midiTrackAdder.js';
 
-class MidiLab extends Component {
+class WebStep extends Component {
 
   constructor(props) {
     super(props);
@@ -74,7 +74,7 @@ class MidiLab extends Component {
     });
 
     return (
-      <div className="MidiLab container">
+      <div className="WebStep container">
 
         <MidiTrackAdder addMidiTrack={this.addMidiTrack} />
 
@@ -85,4 +85,4 @@ class MidiLab extends Component {
   }
 }
 
-export default MidiLab;
+export default WebStep;
