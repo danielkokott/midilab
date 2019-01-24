@@ -79,7 +79,7 @@ class Arpeggiator extends Component {
       <div className="Arpeggiator" style={{marginTop: '3px', marginBottom: '3px'}}>
         <div className="row">
           <div className="col">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div className="btn-group" role="group" aria-label="Basic example">
               <button className="btn btn-sm" type="button" onClick={this.send_testnote_on}>Start test</button>
               <button className="btn btn-sm" type="button" onClick={this.send_testnote_off}>Stop test</button>
               <button className="btn btn-sm" type="button" onClick={this.startArpeggiator}>Start arp</button>
