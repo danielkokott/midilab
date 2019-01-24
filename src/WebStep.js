@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Tone from 'tone';
 
+import GlobalControls from './components/globalControls.js'
 import MidiTrack from './components/midiTrack.js';
 import MidiTrackAdder from './components/midiTrackAdder.js';
 
@@ -52,10 +52,6 @@ class WebStep extends Component {
     navigator.requestMIDIAccess({ sysex: false })
     .then(this.onMIDISuccess)
     .catch(this.onMIDIFailure);
-
-    Tone.Transport.bpm.value = 90;
-    // Tone.Transport.bpm.value = 120;
-    Tone.Transport.start();
   }
   
   render() {
@@ -75,6 +71,8 @@ class WebStep extends Component {
 
     return (
       <div className="WebStep container">
+
+        <GlobalControls />
 
         <MidiTrackAdder addMidiTrack={this.addMidiTrack} />
 

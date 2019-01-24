@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import Tone from 'tone';
-// import { matrix } from 'nexusui';
 
 class StepSequencer extends Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MidiLab from './MidiLab';
+import WebStep from './WebStep';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
